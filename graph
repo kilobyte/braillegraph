@@ -1,0 +1,58 @@
+#!/usr/bin/perl -w
+use strict;
+use GD;
+use integer;
+
+my @data=();
+my $max=0;
+while (<>)
+{
+    /^\s*(\d+)\s*$/ or die "Not a number: '$_'\n";
+    push @data, $1;
+    $max=$1 if $1>$max;
+}
+$max=($max+3)&~3;
+
+my ($sx, $sy) = ($#data+1, $max);
+my $img=new GD::Image($sx, $sy);
+my $paper=$img->colorAllocate(0,0,0);
+my $ink=$img->colorAllocate(255,255,255);
+
+for my $x (0..$#data)
+{
+    for my $y ($max-$data[$x]..$max)
+    {
+        $img->setPixel($x,$y,$ink);
+    }
+}
+
+sub pix($$)
+{
+    return $img->getPixel($_[0], $_[1]);
+}
+
+sub do_char($$)
+{
+    my ($x,$y) = @_;
+    $x*=2; $y*=4;
+    my $g = 0;
+    $g+=  1 if pix($x  ,$y  );
+    $g+=  8 if pix($x+1,$y  );
+    $g+=  2 if pix($x  ,$y+1);
+    $g+= 16 if pix($x+1,$y+1);
+    $g+=  4 if pix($x  ,$y+2);
+    $g+= 32 if pix($x+1,$y+2);
+    $g+= 64 if pix($x  ,$y+3);
+    $g+=128 if pix($x+1,$y+3);
+    # print Unicode codepoint 0x2800+$g, as UTF-8.
+    printf("%c%c%c", 0xe2, 0xa0+$g/64, 0x80+$g%64);
+}
+
+for my $cy (0..($sy-1)/4)
+{
+    for my $cx (0..($sx-1)/2)
+    {
+        do_char($cx, $cy);
+    }
+    print "\n";
+}
