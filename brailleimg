@@ -7,6 +7,9 @@ my $img = new GD::Image($ARGV[0]) or die;
 my $sx = $img->width;
 my $sy = $img->height;
 
+$sx<=1024 && $sy<=1024
+    or die "Sanity check failed: image bigger than 1024x1024.\n";
+
 sub pix($$)
 {
     my ($x,$y) = @_;
