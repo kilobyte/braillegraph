@@ -2,8 +2,17 @@
 use strict;
 use GD;
 use integer;
+my ($FILE, $REVERSE);
 
-my $img = new GD::Image($ARGV[0]) or die;
+while(@ARGV)
+{
+    $_=shift;
+    if (/^-r|--reverse$/) { $REVERSE=1 }
+    elsif (/^-/) { die "Unknown option '$_'.\n" }
+    else { $FILE=$_ }
+}
+
+my $img = new GD::Image($FILE) or die;
 my $sx = $img->width;
 my $sy = $img->height;
 
@@ -13,7 +22,7 @@ $sx<=1024 && $sy<=1024
 sub pix($$)
 {
     my ($x,$y) = @_;
-    return $img->getPixel($x, $y);
+    return ($REVERSE xor $img->getPixel($x, $y));
 }
 
 sub do_char($$)
