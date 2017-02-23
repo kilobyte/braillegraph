@@ -2,12 +2,19 @@
 use strict;
 use GD;
 use integer;
-my ($FILE, $REVERSE);
+my ($FILE, $REVERSE, $THRESH) = (undef, 0, 3*128);
 
 while(@ARGV)
 {
     $_=shift;
     if (/^-r|--reverse$/) { $REVERSE=1 }
+    elsif (/-t|--threshold$/)
+    {
+        defined($_=shift) and /^(\d+)$/
+            or die "-t requires a numeric argument.\n";
+        $1<=255 or die "-t must be within 0..255\n";
+        $THRESH=$1? $1*3 : 1; # -t 0 allows (0,0,1), -t 1 wants (1,1,1) or (0,0,3)
+    }
     elsif (/^-/) { die "Unknown option '$_'.\n" }
     else { $FILE=$_ }
 }
@@ -22,7 +29,8 @@ $sx<=1024 && $sy<=1024
 sub pix($$)
 {
     my ($x,$y) = @_;
-    return ($REVERSE xor $img->getPixel($x, $y));
+    my @p = $img->rgb($img->getPixel($x, $y));
+    return ($REVERSE xor $p[0]+$p[1]+$p[2]>=$THRESH);
 }
 
 sub do_char($$)
