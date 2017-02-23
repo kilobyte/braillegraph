@@ -12,9 +12,9 @@ while (<>)
     $max=$1 if $1>$max;
 }
 $max=($max+3)&~3;
+my $sx = $#data+1;
 
-my ($sx, $sy) = ($#data+1, $max);
-my $img=new GD::Image($sx, $sy);
+my $img=new GD::Image($sx, $max);
 my $paper=$img->colorAllocate(0,0,0);
 my $ink=$img->colorAllocate(255,255,255);
 
@@ -48,7 +48,7 @@ sub do_char($$)
     printf("%c%c%c", 0xe2, 0xa0+$g/64, 0x80+$g%64);
 }
 
-for my $cy (0..($sy-1)/4)
+for my $cy (0..($max-1)/4)
 {
     for my $cx (0..($sx-1)/2)
     {
