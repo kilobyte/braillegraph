@@ -14,7 +14,7 @@ while (<>)
 }
 $max=($max+3)&~3;
 my $sx = $#data+1;
-$sx or die "No data providen.\n";
+$sx or die "No data provided.\n";
 $sx<=1024 or die "Sanity check failed: data series more than 1024 wide.\n";
 $max<=1024 or die "Sanity check failed: data above 1024 tall.  Rescale!\n";
 
