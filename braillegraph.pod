@@ -1,0 +1,44 @@
+=encoding utf8
+
+=head1 NAME
+
+braillegraph - a simple histogram tool that produces text output
+
+=head1 SYNOPSIS
+
+B<braillegraph> E<lt>I<data series>
+
+B<psql> B<-At> B<-c> 'select ...' B<|>B<braillegraph>
+
+=head1 DESCRIPTION
+
+B<braillegraph> takes a single data series and plots them abusing the
+Braille range (U+2800..U+28FF).  It is able to display two values per a
+horizontal character, thus a plain text mail can hold an X range up to ~150
+data points.  The vertical resolution is 4/character, thus a reasonable Y
+range is up to 80ish.
+
+No scaling is done at all — one dot is exactly one data point horizontally,
+a value of 1 vertically.  The upside of this is that you get full control,
+the downside is that you need to fully control it.
+
+Input is given as one non-negative integer per line.
+
+=head1 EXAMPLE
+
+ psql bugs -A -t -c "
+ select
+     count(case when arch='amd64 (x86_64)' then 1 else null end)
+     *80/count(*)
+ from (select arch, date_trunc('month', timestamp) as month from si) m
+ group by month
+ order by month
+ "|braillegraph
+
+=head1 CAVEATS
+
+Same as those in B<brailleimg>, please refer to its man page.
+
+=head1 AUTHOR
+
+Adam Borowski <kilobyte@angband.pl>
