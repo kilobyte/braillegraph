@@ -16,7 +16,7 @@ $max=($max+3)&~3;
 my $sx = $#data+1;
 $sx or die "No data providen.\n";
 $sx<=1024 or die "Sanity check failed: data series more than 1024 wide.\n";
-$max<=1024 or die "Sanity check failed: data above 1024 tall.  Recale!\n";
+$max<=1024 or die "Sanity check failed: data above 1024 tall.  Rescale!\n";
 
 if (my $tx=Term::Size::chars *STDOUT{IO})
 {
