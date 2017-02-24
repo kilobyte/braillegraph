@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 use GD;
+use Term::Size;
 use integer;
 
 my @data=();
@@ -16,6 +17,11 @@ my $sx = $#data+1;
 $sx or die "No data providen.\n";
 $sx<=1024 or die "Sanity check failed: data series more than 1024 wide.\n";
 $max<=1024 or die "Sanity check failed: data above 1024 tall.  Recale!\n";
+
+if (my $tx=Term::Size::chars *STDOUT{IO})
+{
+    $sx<=$tx*2 or die "Graph won't fit on your terminal; |cat to ignore.\n";
+}
 
 my $img=new GD::Image($sx, $max);
 my $paper=$img->colorAllocate(0,0,0);
