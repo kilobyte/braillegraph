@@ -18,9 +18,8 @@ horizontal character, thus a plain text mail can hold an X range up to ~150
 data points.  The vertical resolution is 4/character, thus a reasonable Y
 range is up to 80ish.
 
-No scaling is done at all — one dot is exactly one data point horizontally,
-a value of 1 vertically.  The upside of this is that you get full control,
-the downside is that you need to fully control it.
+By default, no scaling is done at all — one dot is exactly one data point
+horizontally, a value of 1 vertically.
 
 Input is given as one non-negative integer per line.
 
@@ -34,6 +33,32 @@ Input is given as one non-negative integer per line.
  group by month
  order by month
  "|braillegraph
+
+=head1 OPTIONS
+
+=over
+
+=item B<-h>, B<--horizontal>
+
+Horizontal layout.  The Y axis is left-to-right, X axis is top-to-bottom.
+
+=item B<-m>, B<--max> I<number>
+
+Force the target range of the data.  Normally, the histogram will be
+auto-sized based on the largest value in the input; this option sets the max
+to a fixed value.  It will result either in empty space on the graph or in
+values over the limit being hard-capped.
+
+You typically want this option when comparing multiple histograms, or when
+continuously updating the display.
+
+=item B<-y>, B<--y-scale> I<number>
+
+Scale the data so that the graph takes a given size (measured in dots)
+instead of varying on the data given.  The size in characters is E<frac14>
+the dot size on a vertical graph, E<frac12> on horizontal.
+
+=back
 
 =head1 CAVEATS
 
