@@ -41,8 +41,9 @@ $max=1 if !$max; # Accept all-zero data.
 $sx<=1024 or die "Sanity check failed: data series more than 1024 wide.\n";
 $max<=1024 or die "Sanity check failed: data above 1024 tall.  Rescale!\n";
 
-$HORIZ ? $max=($max+1)&~1 : $max=($max+3)&~3;
-my ($ix,$iy) = $HORIZ ? ($max,$sx) : ($sx,$max);
+my $sy = $Y ? $Y : $max;
+$sy = $HORIZ ? ($sy+1)&~1 : ($sy+3)&~3;
+my ($ix,$iy) = $HORIZ ? ($sy,$sx) : ($sx,$sy);
 
 if (my $tx=Term::Size::chars *STDOUT{IO})
 {
@@ -55,9 +56,11 @@ my $ink=$img->colorAllocate(255,255,255);
 
 for my $x (0..$#data)
 {
-    for my $y (1..$data[$x])
+    my $v = $data[$x];
+    $v=$v*$Y/$max if $Y;
+    for my $y (1..$v)
     {
-        $HORIZ ? $img->setPixel($y-1,$x,$ink) : $img->setPixel($x,$max-$y,$ink);
+        $HORIZ ? $img->setPixel($y-1,$x,$ink) : $img->setPixel($x,$sy-$y,$ink);
     }
 }
 
