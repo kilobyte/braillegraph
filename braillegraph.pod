@@ -37,7 +37,11 @@ Input is given as one non-negative integer per line.
 
 =head1 CAVEATS
 
-Same as those in B<brailleimg>, please refer to its man page.
+Versions of FreeFont older than end of 2016 make any Braille glyphs (both
+for legitimate uses and for B<brailleimg>) totally unreadable at pixel sizes
+commonly found in computer displays — ie, anything but HiDPI and/or very
+large text sizes.  Alas, this font is commonly configured as primary
+fallback in default setups shipped by distributions.
 
 =head1 AUTHOR
 

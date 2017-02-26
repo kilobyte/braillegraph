@@ -1,6 +1,6 @@
-PROGS=brailleimg braillegraph
+PROGS=braillegraph
 MANS=$(PROGS:%=%.1)
-TITLE=brailleimg
+TITLE=braillegraph
 #TODO: $(VERSION)
 
 all: $(MANS)
