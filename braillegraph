@@ -3,6 +3,27 @@ use strict;
 use GD;
 use Term::Size;
 use integer;
+my ($HORIZ, $Y, $MAX);
+
+while(@ARGV)
+{
+    $_=shift;
+    if (/^-h|--horizontal$/) { $HORIZ=1 }
+    elsif (/-y|--y-size$/)
+    {
+        $_=shift and /^(\d+)$/
+            or die "-y requires a positive numeric argument.\n";
+        $1<=1024 or die "Such an --y-size would be insane.\n";
+        $Y=$1;
+    }
+    elsif (/-m|--max$/)
+    {
+        $_=shift and /^(\d+)$/
+            or die "-m requires a positive numeric argument.\n";
+        $MAX=$1;
+    }
+    else { die "Unknown argument '$_'.\n" };
+}
 
 my @data=();
 my $max=0;
