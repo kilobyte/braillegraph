@@ -31,11 +31,12 @@ while (<>)
 {
     chomp;
     /^\s*(\d+)\s*$/ or die "Not a number: '$_'\n";
-    push @data, $1;
+    push @data, (defined $MAX && $1>$MAX) ? $MAX : $1;
     $max=$1 if $1>$max;
 }
 my $sx = $#data+1;
 $sx or die "No data provided.\n";
+$max=$MAX if defined $MAX;
 $max=1 if !$max; # Accept all-zero data.
 $sx<=1024 or die "Sanity check failed: data series more than 1024 wide.\n";
 $max<=1024 or die "Sanity check failed: data above 1024 tall.  Rescale!\n";
