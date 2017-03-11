@@ -10,7 +10,7 @@ Vcs-Browser: https://github.com/kilobyte/braillegraph/commits/master
 
 Package: braillegraph
 Architecture: all
-Depends: libgd-perl, libterm-size-perl, ${misc:Depends}
+Depends: libterm-size-perl, ${misc:Depends}
 Description: simple histogram tool producing text dot-matrix graphs
  This tool lets you plot a single-series histogram on a text dot-matrix
  display by abusing Unicode.  This gives a resolution of 2×4 per character,

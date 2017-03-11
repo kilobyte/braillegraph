@@ -1,3 +1,10 @@
+braillegraph (0.2-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop dependency on libgd-perl.
+
+ -- Adam Borowski <kilobyte@angband.pl>  Sat, 11 Mar 2017 05:22:21 +0100
+
 braillegraph (0.1-1) unstable; urgency=medium
 
   * Initial release (Closes: #856033)
