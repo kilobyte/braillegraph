@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-use GD;
 use Term::Size;
 use integer;
 my ($HORIZ, $Y, $MAX);
@@ -50,9 +49,13 @@ if (my $tx=Term::Size::chars *STDOUT{IO})
     $ix<=$tx*2 or die "Graph won't fit on your terminal; |cat to ignore.\n";
 }
 
-my $img=new GD::Image($ix, $iy);
-my $paper=$img->colorAllocate(0,0,0);
-my $ink=$img->colorAllocate(255,255,255);
+my $bitmap = "";
+
+sub setpix($$)
+{
+    die "bitmap access out of range\n" if $_[0]>=$ix || $_[1]>=$iy;
+    vec($bitmap, $_[0]+$ix*$_[1], 1) = 1;
+}
 
 for my $x (0..$#data)
 {
@@ -60,13 +63,14 @@ for my $x (0..$#data)
     $v=$v*$Y/$max if $Y;
     for my $y (1..$v)
     {
-        $HORIZ ? $img->setPixel($y-1,$x,$ink) : $img->setPixel($x,$sy-$y,$ink);
+        $HORIZ ? setpix($y-1,$x) : setpix($x,$sy-$y);
     }
 }
 
 sub pix($$)
 {
-    return $img->getPixel($_[0], $_[1]);
+    return 0 if $_[0]>=$ix || $_[1]>=$iy;
+    return vec($bitmap, $_[0]+$ix*$_[1], 1);
 }
 
 sub do_char($$)
