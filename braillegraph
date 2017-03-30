@@ -38,9 +38,8 @@ $sx or die "No data provided.\n";
 $max=$MAX if defined $MAX;
 $max=1 if !$max; # Accept all-zero data.
 $sx<=1024 or die "Sanity check failed: data series more than 1024 wide.\n";
-$max<=1024 or die "Sanity check failed: data above 1024 tall.  Rescale!\n";
-
 my $sy = $Y ? $Y : $max;
+$sy<=1024 or die "Sanity check failed: data above 1024 tall.  Rescale!\n";
 $sy = $HORIZ ? ($sy+1)&~1 : ($sy+3)&~3;
 my ($ix,$iy) = $HORIZ ? ($sy,$sx) : ($sx,$sy);
 
