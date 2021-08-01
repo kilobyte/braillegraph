@@ -1,6 +1,7 @@
 braillegraph (0.3-2) UNRELEASED; urgency=medium
 
   * Bump debhelper from old 10 to 12.
+  * Set debhelper-compat version in Build-Depends.
 
  -- Debian Janitor <janitor@jelmer.uk>  Sun, 01 Aug 2021 11:52:14 -0000
 
