@@ -2,7 +2,7 @@ Source: braillegraph
 Section: math
 Priority: optional
 Maintainer: Adam Borowski <kilobyte@angband.pl>
-Build-Depends: debhelper (>= 10)
+Build-Depends: debhelper-combat (= 13)
 Standards-Version: 3.9.8
 Homepage: https://github.com/kilobyte/braillegraph
 Vcs-Git: https://github.com/kilobyte/braillegraph -b debian
