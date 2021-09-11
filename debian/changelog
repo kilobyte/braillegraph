@@ -1,3 +1,10 @@
+braillegraph (0.3-3) UNRELEASED; urgency=medium
+
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Sat, 11 Sep 2021 13:04:56 -0000
+
 braillegraph (0.3-2) unstable; urgency=medium
 
   * Add a watch file.
