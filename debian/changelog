@@ -4,6 +4,7 @@ braillegraph (0.3-3) UNRELEASED; urgency=medium
     Repository-Browse.
   * Use canonical URL in Vcs-Git.
   * Update standards version to 4.6.1, no changes needed.
+  * Update standards version to 4.6.2, no changes needed.
 
  -- Debian Janitor <janitor@jelmer.uk>  Sat, 11 Sep 2021 13:04:56 -0000
 
